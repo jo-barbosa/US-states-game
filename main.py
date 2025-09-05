@@ -28,6 +28,11 @@ states = data['state'].to_list()
 while correct_guesses < 50:
     # answer = screen.textinput(title="Guess the State", prompt="What's another state's name?").title()
     answer = screen.textinput(title=f"{correct_guesses}/50 States Correct", prompt="What's another state's name?").title()
+    if answer == "Exit" or answer == "exit":
+        missing_states = [state for state in states if state not in data['state'].to_list()]
+        new_data = pd.DataFrame(missing_states)
+        new_data.to_csv('states_to_learn.csv')
+        break
     if answer in states:
         correct_guesses += 1
         t = turtle.Turtle()
